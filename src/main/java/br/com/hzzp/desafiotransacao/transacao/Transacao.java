@@ -26,9 +26,9 @@ public class Transacao {
     private String transacaoNro;
 	@Positive
     private BigDecimal valor;
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
     private Estabelecimento estabelecimento;
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
     private Cartao cartao;
 	@CreationTimestamp
     private LocalDateTime efetivadaEm;
@@ -44,4 +44,7 @@ public class Transacao {
 		this.cartao = cartao;
 		this.efetivadaEm = efetivadaEm;
 	}
+
+	public BigDecimal getValor() {return valor;}
+	public LocalDateTime getEfetivadaEm() {return efetivadaEm;}
 }

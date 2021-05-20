@@ -11,18 +11,18 @@ public interface TransacaoClient {
 
 	//metodo para iniciar transacao, enviar o numero do cartao + email no body da requisicao
 	@PostMapping("/api/cartoes")
-	public TransacaoResponse inicioTransacao(@RequestBody TransacaoRequest request);
+	public TransacaoResponseFeign inicioTransacao(@RequestBody TransacaoRequestFeign request);
 	
 	//metodo para parar as transacoes, enviar o numero do cartao na url
 	@DeleteMapping("/api/cartoes/{id}")
-	public TransacaoResponse fimTransacao(@PathVariable("id") String nroCartao);
+	public TransacaoResponseFeign fimTransacao(@PathVariable("id") String nroCartao);
 	
 	
-	class TransacaoRequest {
+	class TransacaoRequestFeign {
 		private String id;
 		private String email;
 		
-		public TransacaoRequest(String id, String email) {
+		public TransacaoRequestFeign(String id, String email) {
 			this.id = id;
 			this.email = email;
 		}
@@ -31,11 +31,11 @@ public interface TransacaoClient {
 		public String getEmail() {return email;}
 	}
 	
-	class TransacaoResponse {
+	class TransacaoResponseFeign {
 		private String id;
 		private String email;
 		
-		public TransacaoResponse(String id, String email) {
+		public TransacaoResponseFeign(String id, String email) {
 			this.id = id;
 			this.email = email;
 		}

@@ -2,6 +2,7 @@ package br.com.hzzp.desafiotransacao.transacao;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import br.com.hzzp.desafiotransacao.transacao.cartao.Cartao;
 import br.com.hzzp.desafiotransacao.transacao.cartao.CartaoResponse;
@@ -35,9 +36,14 @@ public class TransacaoResponse {
 	public CartaoResponse getCartao() {return cartao;}
 	public LocalDateTime getEfetivadaEm() {return efetivadaEm;}
 
-	public Transacao toModel() {
+	public Transacao toModel(Optional<Cartao> cartaoExistente) {
     	Estabelecimento novoEstabelecimento = this.estabelecimento.toModel();
-    	Cartao novoCartao = this.cartao.toModel();
+    	Cartao novoCartao = null;
+    	if (cartaoExistente.isEmpty()) {
+    		novoCartao = this.cartao.toModel();
+    	} else {
+    		novoCartao = cartaoExistente.get();
+    	}
 		return new Transacao(this.id,this.valor,novoEstabelecimento,novoCartao,this.efetivadaEm);
 	}
     
